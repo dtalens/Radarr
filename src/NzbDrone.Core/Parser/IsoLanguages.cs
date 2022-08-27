@@ -43,7 +43,7 @@ namespace NzbDrone.Core.Parser
                                                                new IsoLanguage("fa", "", "fas", "Persian", Language.Persian),
                                                                new IsoLanguage("be", "", "ben", "Bengali", Language.Bengali),
                                                                new IsoLanguage("lt", "", "lit", "Lithuanian", Language.Lithuanian),
-                                                               new IsoLanguage("sk", "", "slk", "Slovak", Language.Slovak)
+                                                               new IsoLanguage("sk", "", "slk", "Slovak", Language.Slovak),
                                                                new IsoLanguage("ca", "", "cat", "Catalan", Language.Catalan)
                                                            };
 
