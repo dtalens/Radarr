@@ -27,15 +27,15 @@ namespace NzbDrone.Core.Parser
                                                                             (?<hebrew>\bHebDub\b)|
                                                                             (?<polish>\b(?:PL\W?DUB|DUB\W?PL|LEK\W?PL|PL\W?LEK)\b)|
                                                                             (?<chinese>\[(?:CH[ST]|BIG5|GB)\]|简|繁|字幕)|
-                                                                            (?<ukrainian>(?:(?:\dx)?UKR))",
+                                                                            (?<ukrainian>(?:(?:\dx)?UKR))|
+                                                                            (?<catalan>\CA\b)",
                                                                 RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
 
         private static readonly Regex CaseSensitiveLanguageRegex = new Regex(@"(?:(?i)(?<!SUB[\W|_|^]))(?:(?<lithuanian>\bLT\b)|
                                                                                                           (?<czech>\bCZ\b)|
                                                                                                           (?<polish>\bPL\b)|
                                                                                                           (?<bulgarian>\bBG\b))(?:(?i)(?![\W|_|^]SUB))|
-                                                                                                          (?<slovak>\bSK\b)|
-                                                                                                          (?<catalan>\ca\b)",
+                                                                                                          (?<slovak>\bSK\b)",
                                                                 RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
 
         private static readonly Regex SubtitleLanguageRegex = new Regex(".+?[-_. ](?<iso_code>[a-z]{2,3})([-_. ](?<tags>full|forced|foreign|default|cc|psdh|sdh))*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
