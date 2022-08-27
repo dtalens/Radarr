@@ -147,11 +147,11 @@ namespace NzbDrone.Core.Parser
 
         //Handle Exception Release Groups that don't follow -RlsGrp; Manual List
         //groups whose releases end with RlsGroup) or RlsGroup]
-        private static readonly Regex ExceptionReleaseGroupRegex = new Regex(@"(?<releasegroup>(Tigole|Joy|YIFY|YTS.MX|YTS.LT|FreetheFish|afm72|Anna|Bandi|Ghost|Kappa|MONOLITH|Qman|RZeroX|SAMPA|Silence|theincognito|t3nzin|Vyndros|HDO|DusIctv|DHD|SEV|CtrlHD|-ZR-|ADC|XZVN|RH|Kametsu|r00t|HONE)(?=\]|\)))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex ExceptionReleaseGroupRegex = new Regex(@"(?<releasegroup>(Joy|YIFY|YTS.MX|YTS.LT|FreetheFish|afm72|Anna|Bandi|Ghost|Kappa|MONOLITH|Qman|RZeroX|SAMPA|Silence|theincognito|t3nzin|Vyndros|HDO|DusIctv|DHD|SEV|CtrlHD|-ZR-|ADC|XZVN|RH|Kametsu|r00t|HONE)(?=\]|\)))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
        //Handle Exception Release Groups that don't follow -RlsGrp; Manual List
        // name only...BE VERY CAREFUL WITH THIS, HIGH CHANCE OF FALSE POSITIVES
-        private static readonly Regex ExceptionReleaseGroupRegexExact = new Regex(@"(?<releasegroup>KRaLiMaRKo|E\.N\.D|D\-Z0N3|Koten_Gars|BluDragon|ZØNEHD)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex ExceptionReleaseGroupRegexExact = new Regex(@"(?<releasegroup>KRaLiMaRKo|E\.N\.D|D\-Z0N3|Koten_Gars|BluDragon|ZØNEHD|Tigole)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         private static readonly Regex WordDelimiterRegex = new Regex(@"(\s|\.|,|_|-|=|'|\|)+", RegexOptions.Compiled);
         private static readonly Regex SpecialCharRegex = new Regex(@"(\&|\:|\\|\/)+", RegexOptions.Compiled);
@@ -401,7 +401,7 @@ namespace NzbDrone.Core.Parser
             return null;
         }
 
-        public static string ToUrlSlug(string value)
+        public static string ToUrlSlug(string value, bool invalidDashReplacement = false, string trimEndChars = "-_", string deduplicateChars = "-_")
         {
             //First to lower case
             value = value.ToLowerInvariant();
@@ -412,14 +412,23 @@ namespace NzbDrone.Core.Parser
             //Replace spaces
             value = Regex.Replace(value, @"\s", "-", RegexOptions.Compiled);
 
+            //Should invalid characters be replaced with dash or empty string?
+            string replaceCharacter = invalidDashReplacement ? "-" : string.Empty;
+
             //Remove invalid chars
-            value = Regex.Replace(value, @"[^a-z0-9\s-_]", "", RegexOptions.Compiled);
+            value = Regex.Replace(value, @"[^a-z0-9\s-_]", replaceCharacter, RegexOptions.Compiled);
 
-            //Trim dashes from end
-            value = value.Trim('-', '_');
+            //Trim dashes or underscores from end, or user defined character set
+            if (!string.IsNullOrEmpty(trimEndChars))
+            {
+                value = value.Trim(trimEndChars.ToCharArray());
+            }
 
-            //Replace double occurences of - or _
-            value = Regex.Replace(value, @"([-_]){2,}", "$1", RegexOptions.Compiled);
+            //Replace double occurrences of - or _, or user defined character set
+            if (!string.IsNullOrEmpty(deduplicateChars))
+            {
+                value = Regex.Replace(value, @"([" + deduplicateChars + "]){2,}", "$1", RegexOptions.Compiled);
+            }
 
             return value;
         }

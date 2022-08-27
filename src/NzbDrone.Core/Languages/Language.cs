@@ -105,6 +105,7 @@ namespace NzbDrone.Core.Languages
         public static Language Ukrainian => new Language(32, "Ukrainian");
         public static Language Persian => new Language(33, "Persian");
         public static Language Bengali => new Language(34, "Bengali");
+        public static Language Slovak => new Language(35, "Slovak");
         public static Language Catalan => new Language(39, "Catalan");
         public static Language Any => new Language(-1, "Any");
         public static Language Original => new Language(-2, "Original");
@@ -150,6 +151,7 @@ namespace NzbDrone.Core.Languages
                     Ukrainian,
                     Persian,
                     Bengali,
+                    Slovak,
                     Catalan,
                     Any,
                     Original

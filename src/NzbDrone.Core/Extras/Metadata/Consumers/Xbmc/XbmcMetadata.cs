@@ -261,7 +261,7 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
 
                     details.Add(new XElement("country"));
 
-                    if (movie.MovieMetadata.Value.CollectionTitle != null)
+                    if (Settings.AddCollectionName && movie.MovieMetadata.Value.CollectionTitle != null)
                     {
                         var setElement = new XElement("set");
 
@@ -304,6 +304,8 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
                     details.Add(new XElement("studio", movie.MovieMetadata.Value.Studio));
 
                     details.Add(new XElement("trailer", "plugin://plugin.video.youtube/play/?video_id=" + movie.MovieMetadata.Value.YouTubeTrailerId));
+
+                    details.Add(new XElement("watched", watched));
 
                     if (movieFile.MediaInfo != null)
                     {
