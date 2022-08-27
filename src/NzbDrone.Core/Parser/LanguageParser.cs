@@ -34,7 +34,8 @@ namespace NzbDrone.Core.Parser
                                                                                                           (?<czech>\bCZ\b)|
                                                                                                           (?<polish>\bPL\b)|
                                                                                                           (?<bulgarian>\bBG\b))(?:(?i)(?![\W|_|^]SUB))|
-                                                                                                          (?<slovak>\bSK\b)",
+                                                                                                          (?<slovak>\bSK\b)|
+                                                                                                          (?<catalan>\ca\b)",
                                                                 RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
 
         private static readonly Regex SubtitleLanguageRegex = new Regex(".+?[-_. ](?<iso_code>[a-z]{2,3})([-_. ](?<tags>full|forced|foreign|default|cc|psdh|sdh))*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -185,6 +186,11 @@ namespace NzbDrone.Core.Parser
             }
 
             if (lowerTitle.Contains("slovak"))
+            {
+                languages.Add(Language.Slovak);
+            }
+            
+            if (lowerTitle.Contains("catalan"))
             {
                 languages.Add(Language.Slovak);
             }
