@@ -376,9 +376,9 @@ namespace NzbDrone.Core.Test.ParserTests
         public void should_parse_language_spanish(string postTitle)
         {
             var result = Parser.Parser.ParseMovieTitle(postTitle, true);
-
             result.Languages.Should().BeEquivalentTo(Language.Catalan);
-
+        }
+            
         [TestCase("Movie.Title.en.sub")]
         [TestCase("Movie Title.eng.sub")]
         [TestCase("Movie.Title.eng.forced.sub")]
