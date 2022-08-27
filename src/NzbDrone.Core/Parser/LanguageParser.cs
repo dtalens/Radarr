@@ -192,7 +192,7 @@ namespace NzbDrone.Core.Parser
             
             if (lowerTitle.Contains("catalan"))
             {
-                languages.Add(Language.Slovak);
+                languages.Add(Language.Catalan);
             }
 
             // Case sensitive
